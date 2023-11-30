@@ -1,0 +1,4 @@
+repository "pixelGame@KKenTChu@cloud"
+  path "/"
+    br "/main"
+    co "/main"
