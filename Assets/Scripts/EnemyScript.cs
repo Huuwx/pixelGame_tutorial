@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,9 +6,12 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    private Animator animator;
+    protected Animator animator;
+    public string nameEnemy;
+    public int baseAttack;
+    public float moveSpeed;
 
-    private void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
     }

@@ -21,18 +21,19 @@ public class SwordAttack : MonoBehaviour
         SwordCollider.offset = new Vector2(-1, 0);
     }
 
-    //public void AttackUp()
-    //{
-    //    Debug.Log("Attack Up");
-    //SwordCollider.offset = new Vector2(-0.5, 1);
-    //}
+    public void AttackUp()
+    {
+        //Debug.Log("Attack Up");
+        SwordCollider.enabled = true;
+        SwordCollider.offset = new Vector2(-0.5f, 0.5f);
+    }
 
-    //public void AttackDown()
-    //{
-    //    Debug.Log("Attack Down");
-    //    SwordCollider.enabled = true;
-    //SwordCollider.offset = new Vector2(-0.5, -1);
-    //}
+    public void AttackDown()
+    {
+        //Debug.Log("Attack Down");
+        SwordCollider.enabled = true;
+        SwordCollider.offset = new Vector2(-0.5f, -0.5f);
+    }
 
     public void StopAttack()
     {

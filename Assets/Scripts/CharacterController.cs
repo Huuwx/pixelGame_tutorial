@@ -4,31 +4,33 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    public float damage = 2;
+    public float Range = 0.3f;
+    private Vector3 interactPos;
     private Animator animator;
+    public float thrust;
+    public float knockTime;
+
 
     public float moveSpeed;
 
     private bool isMoving;
 
-    SpriteRenderer spriteRenderer;
 
-    public SwordAttack swordAttack;
-
+    public LayerMask enemiesLayer;
     public LayerMask solidObjectsLayer;
     public LayerMask interactableLayer;
     public LayerMask battleZoneLayer;
+    public LayerMask ObjectBreakableLayer;
 
-    float x;
-    float y;
-
-    private Vector2 input;
+    private Vector3 input;
 
     bool canMove = true;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator.SetFloat("MoveX", -1);
     }
     // Update is called once per frame
     public void HandleUpdate()
@@ -37,30 +39,30 @@ public class CharacterController : MonoBehaviour
 
         if (canMove)
         {
-            if (!isMoving)
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+
+            //if (input.x != 0) input.y = 0;
+
+            if (input != Vector3.zero)
             {
-                input.x = Input.GetAxisRaw("Horizontal");
-                input.y = Input.GetAxisRaw("Vertical");
+                animator.SetFloat("MoveX", input.x);
+                animator.SetFloat("MoveY", input.y);
+
+                var targetPos = transform.position;
+                targetPos.x += input.x;
+                targetPos.y += input.y;
+
+                var pos = transform.position;
 
 
-                if (input.x != 0) input.y = 0;
-
-                if (input != Vector2.zero)
+                if (isWalkable(targetPos))
                 {
-                    animator.SetFloat("MoveX", input.x);
-                    animator.SetFloat("MoveY", input.y);
-                    x = input.x;
-                    y = input.y;
-                    //Debug.Log(x);
-                    //Debug.Log(y);
-
-                    var targetPos = transform.position;
-                    targetPos.x += input.x;
-                    targetPos.y += input.y;
-
-                    if (isWalkable(targetPos))
-                        StartCoroutine(Move(targetPos));
+                    input.Normalize();
+                    Movement(pos, input.x, input.y);
+                    isMoving = true;
                 }
+                
             }
 
             animator.SetBool("isWalk", isMoving);
@@ -69,15 +71,7 @@ public class CharacterController : MonoBehaviour
             {
                 Interact();
             }
-        }
-
-        if(input.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if(input.x > 0)
-        {
-            spriteRenderer.flipX = false;
+            isMoving = false;
         }
     }
 
@@ -93,25 +87,9 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    IEnumerator Move(Vector3 targetPos)
-    {
-        isMoving = true;
-
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        transform.position = targetPos;
-
-        isMoving = false;
-
-        CheckForEncounters();
-    }
-
     private bool isWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.01f, solidObjectsLayer | interactableLayer | ObjectBreakableLayer) != null)
         {
             return false;
         }
@@ -131,34 +109,56 @@ public class CharacterController : MonoBehaviour
     void OnFire()
     {
         animator.SetTrigger("Sword_Attack");
+        var facingDir = new Vector3(animator.GetFloat("MoveX"), animator.GetFloat("MoveY"));
+        interactPos = transform.position + facingDir;
+
+        var collider = Physics2D.OverlapCircle(interactPos, Range, enemiesLayer | ObjectBreakableLayer);
+        if (collider != null)
+        {
+
+            OrcScripts Oenemy = collider.GetComponent<OrcScripts>();
+            SlimeScripts Senemy = collider.GetComponent<SlimeScripts>();
+            SkeletonScripts Skenemy = collider.GetComponent<SkeletonScripts>();
+            ObjectScrips oj = collider.GetComponent<ObjectScrips>();
+            if (Oenemy != null)
+            {
+                Oenemy.Health -= damage;
+                if(Oenemy.health > 0)
+                {
+                    KnockBack(collider);
+                }
+                Debug.Log("Orc");
+            }
+            else if (Senemy != null)
+            {
+                Senemy.Health -= damage;
+                if (Senemy.health > 0)
+                {
+                    KnockBack(collider);
+                }
+                Debug.Log("Slime");
+            }
+            else if(Skenemy != null)
+            {
+                Skenemy.Health -= damage;
+                if (Skenemy.health > 0)
+                {
+                    KnockBack(collider);
+                }
+                Debug.Log("Skeleton");
+            }
+            if (oj != null)
+            {
+                oj.destroy();
+            }
+        }
     }
 
-    public void SwordAttack()
+    private void OnDrawGizmosSelected()
     {
-        LockMovement();
-        if(spriteRenderer.flipX == true)
-        {
-            swordAttack.AttackLeft();
-        }
-        if(spriteRenderer.flipX == false)
-        {
-            swordAttack.AttackRight();
-        }
-        //if(y == 1 && x == 0)
-        //{
-        //    swordAttack.AttackUp();
-        //}
-        //if(y == -1 && x == 0)
-        //{
-        //    swordAttack.AttackDown();
-        //}
+        Gizmos.DrawWireSphere(interactPos, Range);
     }
 
-    public void EndSwordAttack()
-    {
-        UnlocKMovement();
-        swordAttack.StopAttack();
-    }
 
     public void LockMovement()
     {
@@ -170,17 +170,42 @@ public class CharacterController : MonoBehaviour
         canMove = true;
     }
 
-    //void Movement()
-    //{
-    //    float horizontal = Input.GetAxis("Horizontal");
-    //    float vertical = Input.GetAxis("Vertical");
-    //    Vector2 position = transform.position;
+    void Movement(Vector2 pos, float horizontal, float vertical)
+    {
+        //float horizontal = Input.GetAxis("Horizontal");
+        //float vertical = Input.GetAxis("Vertical");
+        //Vector2 position = transform.position;
 
-    //    animator.SetFloat("MoveX", horizontal);
-    //    animator.SetFloat("MoveY", vertical);
+        //animator.SetFloat("MoveX", horizontal);
+        //animator.SetFloat("MoveY", vertical);
 
-    //    position.x = position.x + 3.0f * horizontal * Time.deltaTime;
-    //    position.y = position.y + 3.0f * vertical * Time.deltaTime;
-    //    transform.position = position;
-    //}
+        pos.x = pos.x + moveSpeed * horizontal * Time.deltaTime;
+        pos.y = pos.y + moveSpeed * vertical * Time.deltaTime;
+        transform.position = pos;
+
+        CheckForEncounters();
+    }
+
+    
+    private void KnockBack(Collider2D other)
+    {
+        Rigidbody2D enemy = other.GetComponent<Rigidbody2D>();
+        if (enemy != null)
+        {
+            //enemy.isKinematic = false;
+            Vector2 difference = enemy.transform.position - transform.position;
+            difference = difference.normalized * thrust;
+            enemy.AddForce(difference, ForceMode2D.Impulse);
+            StartCoroutine(knockCo(enemy));
+        }
+    }
+
+    private IEnumerator knockCo(Rigidbody2D enemy)
+    {
+        if (enemy != null)
+        {
+            yield return new WaitForSeconds(knockTime);
+            enemy.velocity = Vector2.zero;
+        }
+    }
 }
