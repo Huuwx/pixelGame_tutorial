@@ -8,7 +8,7 @@ public class OrcScripts : EnemyScript
     public Transform target;
     public float chaseRadius;
     public float attackRadius;
-    public Transform homePostion;
+    public Vector3 homePostion;
     float moveX = 1;
     bool IsRun;
 
@@ -17,9 +17,10 @@ public class OrcScripts : EnemyScript
         base.Start();
         myRigidbody = GetComponent<Rigidbody2D>();
         target = GameObject.FindWithTag("Player").transform;
+        homePostion = transform.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         IsRun = false;
         CheckDistance();
@@ -31,17 +32,37 @@ public class OrcScripts : EnemyScript
     {
         if(Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius) 
         {
-            if (target.position.x < transform.position.x)
+            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
             {
-                moveX = -1;
+                if (target.position.x < transform.position.x)
+                {
+                    moveX = -1;
+                }
+                else
+                {
+                    moveX = 1;
+                }
+                IsRun = true;
+                Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                myRigidbody.MovePosition(temp);
+                changeState(EnemyState.walk);
             }
-            else
+        }
+        else if(transform.position != homePostion && Vector3.Distance(target.position, transform.position) > attackRadius)
+        {
+            if (target.position.x < transform.position.x)
             {
                 moveX = 1;
             }
+            else
+            {
+                moveX = -1;
+            }
             IsRun = true;
-            Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+            Vector3 temp = Vector3.MoveTowards(transform.position, homePostion, moveSpeed * Time.deltaTime);
             myRigidbody.MovePosition(temp);
+            changeState(EnemyState.walk);
         }
     }
 }
+

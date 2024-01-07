@@ -89,7 +89,7 @@ public class CharacterController : MonoBehaviour
 
     private bool isWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.01f, solidObjectsLayer | interactableLayer | ObjectBreakableLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer | ObjectBreakableLayer) != null)
         {
             return false;
         }
@@ -193,6 +193,7 @@ public class CharacterController : MonoBehaviour
         if (enemy != null)
         {
             //enemy.isKinematic = false;
+            enemy.GetComponent<EnemyScript>().currentState = EnemyState.stagger;
             Vector2 difference = enemy.transform.position - transform.position;
             difference = difference.normalized * thrust;
             enemy.AddForce(difference, ForceMode2D.Impulse);
@@ -206,6 +207,7 @@ public class CharacterController : MonoBehaviour
         {
             yield return new WaitForSeconds(knockTime);
             enemy.velocity = Vector2.zero;
+            enemy.GetComponent<EnemyScript>().currentState = EnemyState.idle;
         }
     }
 }
