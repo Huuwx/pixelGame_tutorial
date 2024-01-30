@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+public enum PlayerState
+{
+    idle,
+    walk,
+    attack,
+    interact,
+    stagger
+}
 public class CharacterController : MonoBehaviour
 {
     public float damage = 2;
     public float Range = 0.3f;
     private Vector3 interactPos;
     private Animator animator;
-    public float thrust;
-    public float knockTime;
+    public PlayerState currentState;
+    public KnockBack KB;
 
 
     public float moveSpeed;
@@ -29,6 +38,7 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
+        currentState = PlayerState.idle;
         animator = GetComponent<Animator>();
         animator.SetFloat("MoveX", -1);
     }
@@ -58,6 +68,7 @@ public class CharacterController : MonoBehaviour
 
                 if (isWalkable(targetPos))
                 {
+                    currentState = PlayerState.walk;
                     input.Normalize();
                     Movement(pos, input.x, input.y);
                     isMoving = true;
@@ -69,9 +80,11 @@ public class CharacterController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
+                currentState = PlayerState.interact;
                 Interact();
             }
             isMoving = false;
+            
         }
     }
 
@@ -108,50 +121,59 @@ public class CharacterController : MonoBehaviour
 
     void OnFire()
     {
-        animator.SetTrigger("Sword_Attack");
-        var facingDir = new Vector3(animator.GetFloat("MoveX"), animator.GetFloat("MoveY"));
-        interactPos = transform.position + facingDir;
-
-        var collider = Physics2D.OverlapCircle(interactPos, Range, enemiesLayer | ObjectBreakableLayer);
-        if (collider != null)
+        if(currentState != PlayerState.attack && currentState != PlayerState.stagger)
         {
+            currentState = PlayerState.attack;
+            animator.SetTrigger("Sword_Attack");
+            var facingDir = new Vector3(animator.GetFloat("MoveX"), animator.GetFloat("MoveY"));
+            interactPos = transform.position + facingDir;
 
-            OrcScripts Oenemy = collider.GetComponent<OrcScripts>();
-            SlimeScripts Senemy = collider.GetComponent<SlimeScripts>();
-            SkeletonScripts Skenemy = collider.GetComponent<SkeletonScripts>();
-            ObjectScrips oj = collider.GetComponent<ObjectScrips>();
-            if (Oenemy != null)
+            //var collider = Physics2D.OverlapCircle(interactPos, Range, enemiesLayer | ObjectBreakableLayer);
+            Collider2D[] cld = Physics2D.OverlapCircleAll(interactPos, Range, enemiesLayer | ObjectBreakableLayer);
+            foreach(Collider2D collider in cld)
             {
-                Oenemy.Health -= damage;
-                if(Oenemy.health > 0)
+                if (collider != null)
                 {
-                    KnockBack(collider);
+
+                    OrcScripts Oenemy = collider.GetComponent<OrcScripts>();
+                    SlimeScripts Senemy = collider.GetComponent<SlimeScripts>();
+                    SkeletonScripts Skenemy = collider.GetComponent<SkeletonScripts>();
+                    ObjectScrips oj = collider.GetComponent<ObjectScrips>();
+                    if (Oenemy != null)
+                    {
+                        Oenemy.Health -= damage;
+                        if (Oenemy.health > 0)
+                        {
+                            KB.KnockB(collider);
+                        }
+                        Debug.Log("Orc");
+                    }
+                    else if (Senemy != null)
+                    {
+                        Senemy.Health -= damage;
+                        if (Senemy.health > 0)
+                        {
+                            KB.KnockB(collider);
+                        }
+                        Debug.Log("Slime");
+                    }
+                    else if (Skenemy != null)
+                    {
+                        Skenemy.Health -= damage;
+                        if (Skenemy.health > 0)
+                        {
+                            KB.KnockB(collider);
+                        }
+                        Debug.Log("Skeleton");
+                    }
+                    if (oj != null)
+                    {
+                        oj.destroy();
+                    }
                 }
-                Debug.Log("Orc");
-            }
-            else if (Senemy != null)
-            {
-                Senemy.Health -= damage;
-                if (Senemy.health > 0)
-                {
-                    KnockBack(collider);
-                }
-                Debug.Log("Slime");
-            }
-            else if(Skenemy != null)
-            {
-                Skenemy.Health -= damage;
-                if (Skenemy.health > 0)
-                {
-                    KnockBack(collider);
-                }
-                Debug.Log("Skeleton");
-            }
-            if (oj != null)
-            {
-                oj.destroy();
             }
         }
+            
     }
 
     private void OnDrawGizmosSelected()
@@ -168,6 +190,7 @@ public class CharacterController : MonoBehaviour
     public void UnlocKMovement()
     {
         canMove = true;
+        currentState = PlayerState.walk;
     }
 
     void Movement(Vector2 pos, float horizontal, float vertical)
@@ -186,28 +209,19 @@ public class CharacterController : MonoBehaviour
         CheckForEncounters();
     }
 
-    
-    private void KnockBack(Collider2D other)
+    public void Knock(Rigidbody2D myRigidbody)
     {
-        Rigidbody2D enemy = other.GetComponent<Rigidbody2D>();
-        if (enemy != null)
-        {
-            //enemy.isKinematic = false;
-            enemy.GetComponent<EnemyScript>().currentState = EnemyState.stagger;
-            Vector2 difference = enemy.transform.position - transform.position;
-            difference = difference.normalized * thrust;
-            enemy.AddForce(difference, ForceMode2D.Impulse);
-            StartCoroutine(knockCo(enemy));
-        }
+        StartCoroutine(knockCo(myRigidbody));
     }
 
-    private IEnumerator knockCo(Rigidbody2D enemy)
+    private IEnumerator knockCo(Rigidbody2D myRigidbody)
     {
-        if (enemy != null)
+        if (myRigidbody != null)
         {
-            yield return new WaitForSeconds(knockTime);
-            enemy.velocity = Vector2.zero;
-            enemy.GetComponent<EnemyScript>().currentState = EnemyState.idle;
+            yield return new WaitForSeconds(KB.knockTime);
+            myRigidbody.velocity = Vector2.zero;
+            currentState = PlayerState.idle;
+            myRigidbody.velocity = Vector2.zero;
         }
     }
 }

@@ -1926,20 +1926,12 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 0
   health: 20
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
 --- !u!1 &316852348
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,6 +2262,110 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba33262ca7fa60844baa9e47919ff157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &416959336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 416959337}
+  - component: {fileID: 416959340}
+  - component: {fileID: 416959339}
+  - component: {fileID: 416959338}
+  m_Layer: 5
+  m_Name: HealthHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &416959337
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416959336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 945169735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -279, y: 145.8}
+  m_SizeDelta: {x: 313.5872, y: 146.4802}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &416959338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416959336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1e2eda5345166429508c084be60f70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: 1adc5255372abaa4cad261ad97e0e27d, type: 2}
+  signalEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &416959339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416959336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -858759815, guid: 84027f995ff37754da2e83530992d005, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &416959340
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416959336}
+  m_CullTransparentMesh: 1
 --- !u!1 &478535107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2380,7 @@ GameObject:
   - component: {fileID: 478535110}
   - component: {fileID: 478535109}
   - component: {fileID: 478535114}
+  - component: {fileID: 478535115}
   m_Layer: 10
   m_Name: Idle-Sheet_0 (1)
   m_TagString: Enemy
@@ -2467,20 +2564,26 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 2048
   health: 20
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &478535115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478535107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,6 +3012,7 @@ RectTransform:
   m_Children:
   - {fileID: 1044978086}
   - {fileID: 61281440}
+  - {fileID: 416959337}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2930,6 +3034,7 @@ GameObject:
   - component: {fileID: 953472668}
   - component: {fileID: 953472669}
   - component: {fileID: 953472670}
+  - component: {fileID: 953472671}
   m_Layer: 10
   m_Name: Slime
   m_TagString: Enemy
@@ -3103,20 +3208,72 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 0
   health: 10
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &953472671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953472664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
+--- !u!1 &964428724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964428726}
+  - component: {fileID: 964428725}
+  m_Layer: 0
+  m_Name: KnockBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &964428725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964428724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 20
+  knockTime: 0.04
+--- !u!4 &964428726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964428724}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.17754203, y: -0.13266294, z: 0.14530769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1016063554
 GameObject:
   m_ObjectHideFlags: 0
@@ -10964,6 +11121,7 @@ GameObject:
   - component: {fileID: 1166924984}
   - component: {fileID: 1166924982}
   - component: {fileID: 1166924987}
+  - component: {fileID: 1166924988}
   m_Layer: 10
   m_Name: Idle-Sheet 1_0 (2)
   m_TagString: Enemy
@@ -11147,20 +11305,26 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 0
   health: 20
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &1166924988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166924980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
 --- !u!1 &1410191642
 GameObject:
   m_ObjectHideFlags: 0
@@ -11426,20 +11590,12 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 0
   health: 20
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
 --- !u!4 &1544417087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3066146159290132340, guid: cc28efa3be01b2748ad051aaac1814b2, type: 3}
@@ -11459,6 +11615,7 @@ GameObject:
   - component: {fileID: 1561286314}
   - component: {fileID: 1561286313}
   - component: {fileID: 1561286318}
+  - component: {fileID: 1561286319}
   m_Layer: 10
   m_Name: Slime (2)
   m_TagString: Enemy
@@ -11632,20 +11789,26 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 0
   health: 10
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &1561286319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561286311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
 --- !u!1 &1705296097
 GameObject:
   m_ObjectHideFlags: 0
@@ -13608,6 +13771,7 @@ GameObject:
   - component: {fileID: 1855686597}
   - component: {fileID: 1855686596}
   - component: {fileID: 1855686601}
+  - component: {fileID: 1855686602}
   m_Layer: 10
   m_Name: Slime (1)
   m_TagString: Enemy
@@ -13781,20 +13945,26 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 0
   health: 10
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &1855686602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855686594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
 --- !u!1 &1929919649
 GameObject:
   m_ObjectHideFlags: 0
@@ -13809,6 +13979,7 @@ GameObject:
   - component: {fileID: 1929919652}
   - component: {fileID: 1929919651}
   - component: {fileID: 1929919656}
+  - component: {fileID: 1929919657}
   m_Layer: 10
   m_Name: Idle-Sheet_0 (2)
   m_TagString: Enemy
@@ -13992,20 +14163,26 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 2048
   health: 20
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &1929919657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929919649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
 --- !u!1 &1959143815
 GameObject:
   m_ObjectHideFlags: 0
@@ -14348,7 +14525,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.00000008940697, y: 0.019070864}
@@ -14408,8 +14585,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   Range: 0.6
-  thrust: 20
-  knockTime: 0.04
+  currentState: 0
+  KB: {fileID: 964428725}
   moveSpeed: 3
   enemiesLayer:
     serializedVersion: 2
@@ -14440,6 +14617,7 @@ GameObject:
   - component: {fileID: 2035433700}
   - component: {fileID: 2035433703}
   - component: {fileID: 2035433704}
+  - component: {fileID: 2035433705}
   m_Layer: 10
   m_Name: Idle-Sheet_0
   m_TagString: Enemy
@@ -14623,20 +14801,26 @@ MonoBehaviour:
   nameEnemy: 
   baseAttack: 1
   moveSpeed: 1.5
-  solidObjectsLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ObjectBreakableLayer:
-    serializedVersion: 2
-    m_Bits: 2048
   health: 20
+  maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {fileID: 0}
+  homePostion: {x: 0, y: 0, z: 0}
+--- !u!114 &2035433705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035433697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9444f5d9090c0704a96542acb7375be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 15
+  knockTime: 0.04
 --- !u!1 &2110984686
 GameObject:
   m_ObjectHideFlags: 0
@@ -14769,3 +14953,4 @@ SceneRoots:
   - {fileID: 1410191643}
   - {fileID: 2110984687}
   - {fileID: 117309802}
+  - {fileID: 964428726}

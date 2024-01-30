@@ -20,14 +20,14 @@ public class EnemyScript : MonoBehaviour
     public string nameEnemy;
     public int baseAttack;
     public float moveSpeed;
-    public LayerMask solidObjectsLayer;
-    public LayerMask interactableLayer;
-    public LayerMask ObjectBreakableLayer;
+    public float health;
+    public FloatValue maxHealth;
 
     protected virtual void Start()
     {
         currentState = EnemyState.idle;
         animator = GetComponent<Animator>();
+        health = maxHealth.initialValue;
     }
 
     public float Health
@@ -44,8 +44,7 @@ public class EnemyScript : MonoBehaviour
         }
         get { return health; }
     }
-
-    public float health = 10;
+    
 
     public void Defeated()
     {
@@ -56,21 +55,27 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected bool isWalkable(Vector3 targetPos)
-    {
-        if (Physics2D.OverlapCircle(targetPos, 0.01f, solidObjectsLayer | interactableLayer | ObjectBreakableLayer) != null)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
     protected void changeState(EnemyState newState)
     {
         if(currentState != newState)
         {
             currentState = newState;
+        }
+    }
+
+    public void Knock(Rigidbody2D myRigidboy, float knockTime)
+    {
+        StartCoroutine(knockCo(myRigidboy, knockTime));
+    }
+
+    public IEnumerator knockCo(Rigidbody2D myRigidbody, float knockTime)
+    {
+        if (myRigidbody != null)
+        {
+            yield return new WaitForSeconds(knockTime);
+            myRigidbody.velocity = Vector2.zero;
+            currentState = EnemyState.idle;
+            myRigidbody.velocity = Vector2.zero;
         }
     }
 }
