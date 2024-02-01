@@ -1631,6 +1631,50 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &164123588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 164123590}
+  - component: {fileID: 164123589}
+  m_Layer: 0
+  m_Name: SlimeSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &164123589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164123588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a51ff31f1a98114397e552fece8a945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &164123590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164123588}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.0184145, y: -9.19312, z: 0.0532018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &166695478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1928,6 +1972,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 20
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 0}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
@@ -2566,6 +2611,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 20
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 0}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
@@ -2693,6 +2739,91 @@ MonoBehaviour:
   smoothing: 0.1
   maxPostion: {x: 2.63, y: 1.95}
   minPostion: {x: -2.67, y: -2}
+--- !u!1 &739855414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739855416}
+  - component: {fileID: 739855419}
+  - component: {fileID: 739855418}
+  - component: {fileID: 739855417}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &739855416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739855414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.590014, y: -1.0492846, z: -0.030226037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1428383942}
+  - {fileID: 1705296098}
+  - {fileID: 1410191643}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &739855417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739855414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9a90ac6ee688a4fb19bdd6cba5db6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 2035433698}
+  - {fileID: 1929919650}
+  - {fileID: 478535108}
+--- !u!114 &739855418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739855414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419e7eecd2b7e2c448b51ee55b84271b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1518785404}
+  - {fileID: 235706854}
+  - {fileID: 1166924981}
+--- !u!114 &739855419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739855414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f813d08e04fc62418d7210b0436aa65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 953472667}
+  - {fileID: 1855686600}
+  - {fileID: 1561286317}
 --- !u!1 &766901428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,10 +3341,11 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 10
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 739855419}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {x: 0, y: 0, z: 0}
+  homePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &953472671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11307,6 +11439,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 20
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 0}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
@@ -11349,15 +11482,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410191642}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.23, y: -8.67, z: 0.03865219}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.820013, y: -7.6207156, z: 0.068878226}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1518785404}
   - {fileID: 235706854}
   - {fileID: 1166924981}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 739855416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1428383941
 GameObject:
@@ -11369,7 +11502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1428383942}
   m_Layer: 10
-  m_Name: SlimeEnimies
+  m_Name: SlimeEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11383,15 +11516,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428383941}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.43, y: -9.04, z: 0.03416928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.8399863, y: -7.9907155, z: 0.064395316}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 953472667}
   - {fileID: 1855686600}
   - {fileID: 1561286317}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 739855416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1518785403
 GameObject:
@@ -11592,6 +11725,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 20
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 0}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
@@ -11791,10 +11925,11 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 10
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 739855419}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {x: 0, y: 0, z: 0}
+  homePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1561286319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11833,15 +11968,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705296097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.23, y: -8.92, z: 0.03416928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.820014, y: -7.8707156, z: 0.064395316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2035433698}
   - {fileID: 1929919650}
   - {fileID: 478535108}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 739855416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1732561873
 GameObject:
@@ -13947,10 +14082,11 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 10
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 739855419}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
-  homePostion: {x: 0, y: 0, z: 0}
+  homePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1855686602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14165,6 +14301,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 20
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 0}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
@@ -14803,6 +14940,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   health: 20
   maxHealth: {fileID: 11400000, guid: 6fb88d1c7605c2f4ebd86c470ee60498, type: 2}
+  spawnSlimeEnemies: {fileID: 0}
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1
@@ -14948,9 +15086,8 @@ SceneRoots:
   - {fileID: 945169735}
   - {fileID: 1016063557}
   - {fileID: 766901433}
-  - {fileID: 1428383942}
-  - {fileID: 1705296098}
-  - {fileID: 1410191643}
   - {fileID: 2110984687}
   - {fileID: 117309802}
   - {fileID: 964428726}
+  - {fileID: 739855416}
+  - {fileID: 164123590}

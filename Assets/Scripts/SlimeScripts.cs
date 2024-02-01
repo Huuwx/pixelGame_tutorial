@@ -8,7 +8,7 @@ public class SlimeScripts : EnemyScript
     public Transform target;
     public float chaseRadius;
     public float attackRadius;
-    public Vector3 homePostion;
+    public Vector3 homePosition;
     float moveX = 1;
     bool IsRun;
 
@@ -17,7 +17,7 @@ public class SlimeScripts : EnemyScript
         base.Start();
         myRigidbody = GetComponent<Rigidbody2D>();
         target = GameObject.FindWithTag("Player").transform;
-        homePostion = transform.position;
+        homePosition = transform.position;
     }
 
     private void FixedUpdate()
@@ -48,7 +48,7 @@ public class SlimeScripts : EnemyScript
                 changeState(EnemyState.walk);
             }
         }
-        else if (transform.position != homePostion && Vector3.Distance(target.position, transform.position) > attackRadius)
+        else if (transform.position != homePosition && Vector3.Distance(target.position, transform.position) > attackRadius)
         {
             if (target.position.x < transform.position.x)
             {
@@ -59,9 +59,18 @@ public class SlimeScripts : EnemyScript
                 moveX = -1;
             }
             IsRun = true;
-            Vector3 temp = Vector3.MoveTowards(transform.position, homePostion, moveSpeed * Time.deltaTime);
+            Vector3 temp = Vector3.MoveTowards(transform.position, homePosition, moveSpeed * Time.deltaTime);
             myRigidbody.MovePosition(temp);
             changeState(EnemyState.walk);
         }
+
+        
+    }
+    public override void RemoveEnemy()
+    {
+        gameObject.SetActive(false);
+        Debug.Log(gameObject.name + "bien mat");
+        //Destroy(gameObject);
+        spawnSlimeEnemies.SpawnCo();
     }
 }

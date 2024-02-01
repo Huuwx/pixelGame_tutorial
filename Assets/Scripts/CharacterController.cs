@@ -114,7 +114,7 @@ public class CharacterController : MonoBehaviour
     {
         if(Physics2D.OverlapCircle(transform.position, 0.01f, battleZoneLayer) != null)
         {
-            Debug.Log("You're in a battle zone!");
+            //Debug.Log("You're in a battle zone!");
         }
 
     }

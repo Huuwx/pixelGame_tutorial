@@ -22,11 +22,15 @@ public class EnemyScript : MonoBehaviour
     public float moveSpeed;
     public float health;
     public FloatValue maxHealth;
+    protected SpawnSlimeEnemies spawnSlimeEnemies;
+    protected spawner1 spawner;
 
     protected virtual void Start()
     {
         currentState = EnemyState.idle;
         animator = GetComponent<Animator>();
+        spawner = GetComponent<spawner1>();
+        spawnSlimeEnemies = GetComponent<SpawnSlimeEnemies>();
         health = maxHealth.initialValue;
     }
 
@@ -50,9 +54,11 @@ public class EnemyScript : MonoBehaviour
     {
         animator.SetTrigger("IsDead");
     }
-    public void RemoveEnemy()
+    public virtual void RemoveEnemy()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        Debug.Log(gameObject.name + "bien mat");
+        //Destroy(gameObject);
     }
 
     protected void changeState(EnemyState newState)
